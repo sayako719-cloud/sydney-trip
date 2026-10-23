@@ -160,7 +160,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
       <aside class="side" id="side"></aside>
       <div id="dayMain"></div>
     </div>
-    <p class="note">※ 打勾的紀錄只保留在目前開著的頁面，重新整理會消失。</p>
+    <p class="note">※ 打勾的紀錄會自動保存，所有人打開都看得到。</p>
   </section>
 
   <!-- ===== 餐廳 ===== -->
@@ -197,7 +197,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
         </table>
       </div>
       <div class="sum" id="expSum"></div>
-      <p class="note">※ 記錄只保留在本頁面，重新整理會消失。想留下來，請先按「下載 CSV」或「複製記錄」。</p>
+      <p class="note">※ 記錄會自動保存，明天打開也看得到。想備份時，可以按「下載 CSV」。</p>
     </div>
   </section>
 
@@ -223,6 +223,58 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
 <a class="fab" href="https://transportnsw.info/" target="_blank" rel="noopener">🚆 查詢電車</a>
 
 <script>
+/* ========== Firebase（保存用） ========== */
+const firebaseConfig = {
+  apiKey: "AIzaSyByXpvrKogOl6xzatS8cs0BQmYMm8dVYho",
+  authDomain: "sydney-3fca6.firebaseapp.com",
+  projectId: "sydney-3fca6",
+  storageBucket: "sydney-3fca6.firebasestorage.app",
+  messagingSenderId: "33959606227",
+  appId: "1:33959606227:web:ef73229f24723d40b0a126",
+  measurementId: "G-JBR41GP9GV"
+};
+let db = null, fsApi = null;
+async function setupFirebase(){
+  if(db) return true;
+  const sources = [
+    {app:"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js",
+     fs:"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"},
+    {app:"https://esm.sh/firebase@10.12.2/app",
+     fs:"https://esm.sh/firebase@10.12.2/firestore"}
+  ];
+  for(const s of sources){
+    try{
+      const appMod = await import(s.app);
+      const fs = await import(s.fs);
+      const app = appMod.initializeApp(firebaseConfig);
+      db = fs.getFirestore(app);
+      fsApi = fs;
+      return true;
+    }catch(err){ console.error("Firebase load failed:", s.app, err); }
+  }
+  return false;
+}
+async function saveProgress(data){
+  if(!(await setupFirebase())){ alert("保存できませんでした，請確認網路"); return; }
+  await fsApi.setDoc(fsApi.doc(db,"trip","progress"), data, {merge:true});
+}
+async function loadAll(){
+  if(!(await setupFirebase())) return;
+  try{
+    const pSnap = await fsApi.getDoc(fsApi.doc(db,"trip","progress"));
+    const d = pSnap.exists() ? pSnap.data() : {};
+    Object.assign(visited, d.visited || {});
+    Object.assign(booked, d.booked || {});
+    const eSnap = await fsApi.getDocs(fsApi.query(fsApi.collection(db,"expenses"), fsApi.orderBy("createdAt","asc")));
+    expenses.length = 0;
+    eSnap.docs.forEach(x=>{
+      const v = x.data();
+      expenses.push({id:x.id, shop:v.shop, amount:v.amount, people:v.people, share:v.share});
+    });
+    renderDay(); renderFood(); renderExp();
+  }catch(err){ console.error(err); }
+}
+
 /* ========== 地點資料 ========== */
 // n：顯示名稱　q：Google 地圖搜尋用的英文名　r：需要訂位
 const PLACES = {
@@ -535,22 +587,29 @@ function expenseLines(){
   return lines;
 }
 
-document.addEventListener("click", e=>{
+document.addEventListener("click", async e=>{
   if(e.target.id === "eAdd"){
     const shop = $("eShop").value.trim() || "未填店名";
     const amount = Math.round((parseFloat($("eAmt").value)||0)*100)/100;
     const people = Math.max(1, parseInt($("ePeople").value,10)||1);
     if(amount<=0){ alert("請輸入出費金額"); $("eAmt").focus(); return; }
-    expenses.push({id:++expSeq, shop, amount, people, share: Math.round(amount/people*100)/100});
+    if(!(await setupFirebase())){ alert("保存できませんでした，請確認網路"); return; }
+    const share = Math.round(amount/people*100)/100;
+    await fsApi.addDoc(fsApi.collection(db,"expenses"), {shop, amount, people, share, createdAt: fsApi.serverTimestamp()});
     $("eShop").value = ""; $("eAmt").value = "";
-    updateShare(); renderExp();
+    updateShare();
+    await loadAll();
     return;
   }
   const del = e.target.closest("[data-del]");
   if(del){
-    const id = Number(del.dataset.del);
-    const i = expenses.findIndex(x=>x.id===id);
-    if(i>=0 && confirm("要刪除這筆記錄嗎？")){ expenses.splice(i,1); renderExp(); }
+    const id = del.dataset.del;
+    if(confirm("要刪除這筆記錄嗎？")){
+      if(await setupFirebase()){
+        await fsApi.deleteDoc(fsApi.doc(db,"expenses",id));
+        await loadAll();
+      }
+    }
     return;
   }
   if(e.target.id === "eCopy"){
@@ -588,8 +647,14 @@ document.addEventListener("click", e=>{
 });
 document.addEventListener("change", e=>{
   const t = e.target;
-  if(t.dataset.k !== undefined){ visited[t.dataset.k] = t.checked; renderDay(); }
-  if(t.dataset.bk !== undefined){ booked[t.dataset.bk] = t.checked; renderFood(); }
+  if(t.dataset.k !== undefined){
+    visited[t.dataset.k] = t.checked; renderDay();
+    saveProgress({visited:{[t.dataset.k]: t.checked}});
+  }
+  if(t.dataset.bk !== undefined){
+    booked[t.dataset.bk] = t.checked; renderFood();
+    saveProgress({booked:{[t.dataset.bk]: t.checked}});
+  }
 });
 document.addEventListener("input", e=>{
   if(e.target.id === "aud" || e.target.id === "rate") convert();
@@ -600,6 +665,7 @@ document.addEventListener("input", e=>{
   const diff = Math.ceil((new Date("2026-11-07T00:00:00+11:00") - new Date())/86400000);
   $("cd").textContent = diff>0 ? `🛫 出發還有 ${diff} 天` : diff===0 ? "🛫 今天出發！" : "✨ 旅行中／旅行後";
   renderSide(); renderDay(); renderFood(); renderTransport(); convert(); renderExp(); updateShare();
+  loadAll();
 })();
 </script>
 </body>
