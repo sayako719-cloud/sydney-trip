@@ -126,6 +126,7 @@ th{color:var(--sub);font-size:.88rem}
 td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
 .del{border:none;background:none;color:#d14d6f;font-weight:700;cursor:pointer;font-family:inherit;min-height:36px;padding:4px 8px}
 .sum{margin-top:14px;background:var(--pink-soft);border-radius:18px;padding:14px;font-weight:700;line-height:1.9}
+.rinfo{background:var(--pink-soft);border-radius:14px;padding:10px 12px;font-size:.9rem;white-space:pre-line;color:var(--ink);line-height:1.7}
 .note{font-size:.86rem;color:var(--sub);margin:12px 4px}
 .fab{position:fixed;right:16px;bottom:16px;z-index:60;display:inline-flex;align-items:center;gap:8px;min-height:56px;padding:12px 20px;border-radius:999px;background:linear-gradient(120deg,var(--pink),var(--lilac));color:#fff;font-weight:800;font-size:1.02rem;text-decoration:none;box-shadow:0 10px 26px rgba(255,122,162,.45)}
 .fab:active{transform:scale(.97)}
@@ -330,6 +331,41 @@ const PLACES = {
   harris:{n:"Harris Farm Markets Broadway",q:"Harris Farm Markets Broadway Sydney"}
 };
 
+/* ========== 餐廳資訊（菜單・價格・附加費） ========== */
+const RESTAURANT_INFO = {
+  primi:{
+    menus:[{t:"📋 菜單", u:"https://primiitalian.com.au/"}],
+    note:"單點"
+  },
+  palazzo:{
+    menus:[
+      {t:"📋 網頁菜單", u:"https://www.lovetillygroup.com/palazzo-salato"},
+      {t:"📄 PDF 菜單", u:"https://cdn.sanity.io/files/b07h8r21/production/d3e79f860f1cf529d513c614ab2dde0c41aa09e2.pdf"}
+    ],
+    note:"單點"
+  },
+  charles:{
+    menus:[{t:"📋 菜單", u:"https://thecharles.sydney/menu/"}],
+    note:"單點\n【平日套餐】$69 / 人（週一至週五，12:00–13:00 ／ 17:00–18:00，限時 90 分鐘）\n・麵包：酸麵包配發酵奶油\n・主餐二選一：海鱒魚菲力 ／ 250g 平鐵牛排（附沙拉與薯條）\n・甜點：俄式蜂蜜蛋糕\n⚠️ 國定假日用餐加收 15% 附加費"
+  },
+  ragazzi:{
+    menus:[{t:"📋 菜單", u:"https://www.lovetillygroup.com/ragazzi-wine-pasta"}],
+    note:"單點"
+  },
+  bartotti:{
+    menus:[{t:"📋 菜單", u:"https://merivale.com/venues/bar-tottis/menu/?utm_source=googlemybusiness_menu&utm_medium=organic&utm_campaign=googlemybusiness_menu_organic_bartottis&utm_content=menu"}],
+    note:"單點\n⚠️ 週日加收 10% 附加費\n⚠️ 國定假日加收 15% 附加費"
+  },
+  meatwine:{
+    menus:[{t:"📋 單點菜單", u:"https://themeatandwineco.com/menus/a-la-carte-menu/"}],
+    note:"單點\n【午間套餐 Christmas Express Lunch】\n期間：2026/10/28–11/29，週一至週四 12:00–16:00\n兩道 $59 ／ 三道 $65（每人）\n⚠️ 所有訂位都要加附加費：週日 +5%、國定假日 +10%\n📅 11/12（四）午餐可以選這個套餐"
+  },
+  toki:{
+    menus:[{t:"📋 菜單", u:"https://tokiitalianinspired.com.au/"}],
+    note:"單點\n⚠️ 週日加收 10% 附加費\n⚠️ 國定假日加收 15% 附加費"
+  }
+};
+
 /* ========== 每日行程 ========== */
 // p：地點　x：說明　step：移動（不算停靠點）　c：候選（不放進地圖路線）
 // mode：地圖路線的交通方式
@@ -529,11 +565,13 @@ function renderFood(){
     return `<div class="food ${b?'booked':''}">
       <div class="name">${esc(p.n)}</div>
       <div class="days">📅 ${esc((dayOf[id]||[]).join("、"))}</div>
+      ${RESTAURANT_INFO[id] ? `<div class="rinfo">${esc(RESTAURANT_INFO[id].note)}</div>` : ""}
       <label class="check"><input type="checkbox" data-bk="${id}" ${b?'checked':''}> <span>${b?'✅ 已訂位':'還沒訂，勾選即代表已訂'}</span></label>
       <div class="actions">
         <a class="btn primary" href="${mapsPlace(id)}" target="_blank" rel="noopener">🍽️ 去訂位</a>
         <a class="btn sky" href="${bookUrl(id)}" target="_blank" rel="noopener">🔎 搜尋訂位</a>
         <a class="btn ghost" href="${mapsPlace(id)}" target="_blank" rel="noopener">📍 地圖</a>
+        ${(RESTAURANT_INFO[id]?.menus||[]).map(m=>`<a class="btn ghost" href="${m.u}" target="_blank" rel="noopener">${esc(m.t)}</a>`).join("")}
       </div>
     </div>`;
   }).join("");
