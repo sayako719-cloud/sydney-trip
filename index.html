@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>雪梨女孩旅行 🎀 2026.11.07–11.14</title>
+<style>
+:root{
+  --pink:#ff8fb1; --pink2:#ffe3ec; --peach:#ffb38a; --cream:#fff8f2;
+  --mint:#8ee3c7; --sky:#8ecae6; --lilac:#c3aaf0; --yellow:#ffd166; --rose:#f7a1c4;
+  --ink:#4a3b52; --sub:#8f7d96; --card:#ffffff; --line:#f3d6e0;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --cream:#2a1f2e; --card:#352839; --ink:#fbeaf3; --sub:#c9b3c7; --line:#4f3c53; --pink2:#4a2e44; }
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  background-image:radial-gradient(circle at 10% 10%, #ffd6e4 0, transparent 30%),
+                   radial-gradient(circle at 90% 30%, #d9ccff 0, transparent 25%),
+                   radial-gradient(circle at 50% 90%, #ffe9c7 0, transparent 30%);
+  background-attachment:fixed;
+  line-height:1.65;
+}
+header{
+  text-align:center; padding:22px 16px 16px;
+  background:linear-gradient(135deg,var(--pink),var(--lilac));
+  color:#fff; border-radius:0 0 28px 28px;
+  box-shadow:0 6px 20px rgba(255,143,177,.35);
+  position:sticky; top:0; z-index:50;
+}
+header h1{margin:0;font-size:1.45rem;letter-spacing:.5px}
+header .date{font-size:.95rem;opacity:.95;margin-top:2px}
+header .cd{display:inline-block;margin-top:8px;background:rgba(255,255,255,.25);padding:3px 12px;border-radius:999px;font-size:.88rem}
+.bar{height:10px;background:rgba(255,255,255,.35);border-radius:10px;margin:10px auto 0;max-width:360px;overflow:hidden}
+.bar>div{height:100%;width:0;background:#fff;border-radius:10px;transition:width .4s}
+.prog{font-size:.85rem;margin-top:4px}
+
+nav{
+  display:flex;gap:8px;overflow-x:auto;padding:12px;justify-content:center;position:sticky;top:0;z-index:40;
+}
+nav button{
+  border:none;background:var(--card);color:var(--ink);padding:9px 14px;border-radius:999px;
+  font-size:.92rem;white-space:nowrap;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+nav button.on{background:var(--pink);color:#fff}
+
+main{max-width:780px;margin:0 auto;padding:4px 12px 40px}
+section{display:none}
+section.on{display:block}
+
+.pills{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px}
+.pill{
+  flex:0 0 auto;border:2px solid var(--pink2);background:var(--card);color:var(--ink);
+  padding:6px 12px;border-radius:14px;font-size:.88rem;cursor:pointer;
+}
+.pill.on{background:var(--pink);border-color:var(--pink);color:#fff}
+.pill .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+.card{
+  background:var(--card);border-radius:22px;padding:16px;margin-bottom:14px;
+  box-shadow:0 6px 18px rgba(200,120,160,.12);border:2px solid var(--line);
+}
+.day-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.day-title .no{
+  width:44px;height:44px;border-radius:50%;background:var(--day,#ff8fb1);color:#fff;font-weight:700;
+  display:flex;align-items:center;justify-content:center;font-size:.95rem;flex:0 0 auto;
+}
+.day-title h2{margin:0;font-size:1.15rem}
+.today{background:var(--yellow);color:#6b4a00;font-size:.75rem;padding:2px 8px;border-radius:999px;font-weight:700}
+
+.stop{display:flex;gap:12px;padding:12px 0;border-top:2px dashed var(--line)}
+.stop:first-of-type{border-top:none}
+.stop.done{opacity:.55}
+.stop input{width:22px;height:22px;margin-top:4px;flex:0 0 auto;accent-color:var(--pink)}
+.stop .num{
+  width:26px;height:26px;border-radius:50%;background:var(--day,#ff8fb1);color:#fff;font-size:.8rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:2px
+}
+.stop .body{flex:1;min-width:0}
+.stop .name{font-weight:700;font-size:1rem}
+.stop .desc{color:var(--sub);font-size:.9rem}
+.stop.done .name{text-decoration:line-through}
+.res-tag{background:var(--mint);color:#0f5b46;font-size:.72rem;padding:1px 7px;border-radius:8px;margin-left:6px;vertical-align:middle}
+
+.step{
+  background:linear-gradient(90deg,#e0f7ff,#fff);border-radius:14px;padding:8px 12px;margin:8px 0;
+  font-size:.88rem;color:#2b6d8a;border:1.5px dashed var(--sky);
+}
+
+.btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.btns a{
+  text-decoration:none;font-size:.8rem;padding:4px 10px;border-radius:999px;
+  border:2px solid var(--pink);color:var(--pink);font-weight:600;background:transparent;
+}
+.btns a.book{background:var(--pink);color:#fff}
+.btns a.book2{border-color:var(--mint);color:#0f7a5f}
+
+/* ---------- MAP ---------- */
+.map-card{padding:10px;overflow:hidden}
+.map-card svg{width:100%;height:auto;display:block;border-radius:16px}
+.legend{margin-top:10px}
+.legend .row{display:flex;gap:10px;align-items:center;padding:8px 6px;border-radius:12px;cursor:pointer}
+.legend .row:hover,.legend .row.hi{background:var(--pink2)}
+.legend .num{width:26px;height:26px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex:0 0 auto}
+.legend .row a{color:var(--pink);font-size:.82rem;margin-left:auto;text-decoration:none;white-space:nowrap}
+.info{background:var(--pink2);border-radius:16px;padding:12px;margin-top:8px;font-size:.92rem}
+.info a{color:var(--pink);font-weight:700}
+.note{font-size:.82rem;color:var(--sub);margin:10px 4px}
+
+/* ---------- FOOD ---------- */
+.food{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-top:2px dashed var(--line)}
+.food:first-child{border-top:none}
+.food input{width:22px;height:22px;margin-top:4px;accent-color:var(--mint);flex:0 0 auto}
+.food .body{flex:1}
+.food .name{font-weight:700}
+.food small{color:var(--sub)}
+.food.booked .name{color:#0f7a5f}
+.food .booked-tag{font-size:.75rem;color:#0f7a5f}
+
+/* ---------- TRANSPORT ---------- */
+.t-card h3{margin:0 0 4px;font-size:1rem}
+.t-card .price{display:inline-block;background:var(--yellow);color:#6b4a00;padding:2px 10px;border-radius:999px;font-weight:700;font-size:.9rem;margin:2px 0 6px}
+.t-card p{margin:4px 0;font-size:.92rem;color:var(--sub)}
+.conv{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;font-size:.95rem}
+.conv input{width:90px;padding:8px;border-radius:12px;border:2px solid var(--pink2);background:var(--card);color:var(--ink);font-size:1rem}
+.conv strong{color:var(--pink);font-size:1.1rem}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎀 雪梨女孩旅行 🎀</h1>
+  <div class="date">2026.11.07（六）— 11.14（六）✈️</div>
+  <div class="cd" id="cd"></div>
+  <div class="bar"><div id="bar"></div></div>
+  <div class="prog" id="prog"></div>
+</header>
+
+<nav>
+  <button class="on" data-tab="day">📅 行程</button>
+  <button data-tab="map">🗺️ 地圖</button>
+  <button data-tab="food">🍽️ 餐廳訂位</button>
+  <button data-tab="trans">🚇 交通費用</button>
+</nav>
+
+<main>
+
+<!-- ===== 行程 ===== -->
+<section id="tab-day" class="on">
+  <div class="pills" id="dayPills"></div>
+  <div id="dayContent"></div>
+  <p class="note">💡 打勾紀錄只會在目前這個頁面開著時保留，重新整理會消失。</p>
+</section>
+
+<!-- ===== 地圖 ===== -->
+<section id="tab-map">
+  <div class="pills" id="mapPills"></div>
+  <div class="card map-card">
+    <svg viewBox="0 0 760 520" xmlns="http://www.w3.org/2000/svg" id="mapSvg" role="img" aria-label="雪梨示意地圖"></svg>
+  </div>
+  <div class="card">
+    <div id="legend" class="legend"></div>
+    <div id="info"></div>
+  </div>
+  <p class="note">🗺️ 此為示意地圖，方便看出各景點的相對位置。每個景點都可以點「Google 地圖」查看正確位置。南岸的傑林貢與奇亞馬位於地圖範圍外。</p>
+</section>
+
+<!-- ===== 餐廳訂位 ===== -->
+<section id="tab-food">
+  <div class="card">
+    <strong>📌 訂位小提醒</strong>
+    <p style="margin:6px 0 0;font-size:.92rem;color:var(--sub)">按「訂位」會在 Google 地圖開啟該餐廳，若有訂位按鈕就能直接預約。出發前請再確認營業時間與是否接受訂位。訂好就打勾，方便管理 ✨</p>
+  </div>
+  <div class="card" id="foodList"></div>
+</section>
+
+<!-- ===== 交通費用 ===== -->
+<section id="tab-trans">
+  <div id="transList"></div>
+  <div class="card">
+    <strong>💱 澳幣 → 新台幣換算</strong>
+    <div class="conv">
+      <input type="number" id="aud" value="20" min="0" step="1"> 澳幣
+      ×
+      <input type="number" id="rate" value="20" min="0" step="0.1"> 元/澳幣
+      =
+      <strong id="twd">---</strong>
+    </div>
+    <p class="note" style="margin-bottom:0">匯率僅供參考，請依出發當天的匯率修改。</p>
+  </div>
+  <p class="note">⚠️ 所有費用皆為大約值（澳幣）。Opal 費率與火車票價可能會變，搭車前請用 Transport for NSW 官方 App 再確認。</p>
+</section>
+
+</main>
+
+<script>
+/* ========== 景點資料 ========== */
+const PLACES = {
+  syd:{n:"雪梨機場 (SYD)",lat:-33.9399,lng:151.1753},
+  central:{n:"Central 車站",lat:-33.8832,lng:151.2063},
+  hotel:{n:"Caption by Hyatt Central Sydney 酒店",lat:-33.8756,lng:151.2064},
+  qvb:{n:"維多利亞女王大廈 (QVB)",lat:-33.8717,lng:151.2069},
+  westfield:{n:"Westfield Sydney 購物中心",lat:-33.8705,lng:151.2095},
+  coles:{n:"Coles World Square",lat:-33.8815,lng:151.2015},
+  charles:{n:"The Charles Brasserie & Bar",lat:-33.8738,lng:151.2060,r:1},
+  darling:{n:"達令港（煙火秀）",lat:-33.8731,lng:151.1995},
+  bondimkt:{n:"邦迪市集 Bondi Markets（週日）",lat:-33.8910,lng:151.2755},
+  harrys:{n:"Harrys Bondi",lat:-33.8908,lng:151.2748},
+  b2c:{n:"邦迪至庫吉海岸步道",lat:-33.9100,lng:151.2650},
+  dudley:{n:"達德利佩奇保護區",lat:-33.8530,lng:151.2150},
+  ragazzi:{n:"Ragazzi（Angel Place）",lat:-33.8720,lng:151.2090,r:1},
+  paramount:{n:"Paramount Coffee Project",lat:-33.8835,lng:151.2110},
+  opera:{n:"雪梨歌劇院",lat:-33.8568,lng:151.2153},
+  rocks:{n:"岩石區 The Rocks",lat:-33.8590,lng:151.2080},
+  botanic:{n:"雪梨皇家植物園",lat:-33.8642,lng:151.2166},
+  mrsm:{n:"麥夸里夫人椅",lat:-33.8636,lng:151.2225},
+  stmary:{n:"聖瑪麗大教堂",lat:-33.8705,lng:151.2131},
+  bartotti:{n:"Bar Totti's",lat:-33.8690,lng:151.2100,r:1},
+  gerringong:{n:"傑林貢 Gerringong",lat:-34.7583,lng:150.8340,off:1},
+  kiama:{n:"奇亞馬噴水洞 Kiama Blowhole",lat:-34.6714,lng:150.8566,off:1},
+  messina:{n:"Gelato Messina Martin Place",lat:-33.8679,lng:151.2104},
+  khao:{n:"K H A O • S O I 咖哩麵",lat:-33.8745,lng:151.2050,r:1},
+  toki:{n:"Toki Craft Pasta Bar",lat:-33.8700,lng:151.2185,r:1},
+  midden:{n:"Midden by Mark Olive",lat:-33.8568,lng:151.2153,r:1},
+  manlyferry:{n:"曼利快速渡輪（環形碼頭 2 號碼頭）",lat:-33.8605,lng:151.2110},
+  shelly:{n:"雪莉海灘 Shelly Beach",lat:-33.7990,lng:151.2840},
+  rollers:{n:"Rollers Bakehouse（曼利）",lat:-33.7975,lng:151.2855},
+  butterboy:{n:"Butterboy - Manly",lat:-33.7968,lng:151.2870},
+  salumerie:{n:"SALUMERIE - Manly",lat:-33.7968,lng:151.2868,r:1},
+  gap:{n:"蓋普公園與鑽石灣保護區",lat:-33.8400,lng:151.2800},
+  primi:{n:"Primi Italian",lat:-33.8710,lng:151.2070,r:1},
+  singleo:{n:"Single O Surry Hills",lat:-33.8829,lng:151.2111},
+  ap:{n:"A.P House (A.P Bakery)",lat:-33.8825,lng:151.2115},
+  meatwine:{n:"The Meat & Wine Co Circular Quay",lat:-33.8612,lng:151.2115,r:1},
+  milsons:{n:"米爾森斯角市區眺望點",lat:-33.8482,lng:151.2107},
+  blues:{n:"布魯斯角保護區",lat:-33.8500,lng:151.2080},
+  doodee:{n:"Doodee King - Darling Quarter",lat:-33.8740,lng:151.1995,r:1},
+  bonditratt:{n:"Bondi Trattoria",lat:-33.8905,lng:151.2755,r:1},
+  monde:{n:"Le MONDE Bakery-Cafe",lat:-33.8730,lng:151.2070},
+  pina:{n:"PIÑA Potts Point",lat:-33.8700,lng:151.2260,r:1},
+  truffles:{n:"Truffles（Llankelly Place）",lat:-33.8710,lng:151.2255,r:1},
+  bourke:{n:"Bourke Street Bakery Surry Hills",lat:-33.8830,lng:151.2095},
+  lode:{n:"Lode Pies & Pastries Surry Hills",lat:-33.8825,lng:151.2100},
+  malay:{n:"Malay Chinese Town Hall",lat:-33.8720,lng:151.2040,r:1},
+  arthur:{n:"Arthur Surry Hills",lat:-33.8850,lng:151.2125,r:1},
+  palazzo:{n:"Palazzo Salato",lat:-33.8680,lng:151.2100,r:1},
+  sundays:{n:"sundays bondi",lat:-33.8930,lng:151.2760},
+  harris:{n:"Harris Farm Markets Broadway",lat:-33.8830,lng:151.1990}
+};
+
+/* ========== 每日行程 ========== */
+const DAYS = [
+  {d:"2026-11-07", label:"11/7（六）", title:"抵達與市區初探", color:"#ff8fb1", items:[
+    {p:"syd", x:"入境、領行李。買 Opal 交通卡（機場車站或便利商店），或直接用感應卡／Apple Pay 搭車"},
+    {step:"搭 Airport Link 電車到 Central 車站（約 10–15 分鐘）"},
+    {p:"hotel", x:"步行到飯店辦理入住，先放行李 🧳"},
+    {p:"qvb", x:"百年羅馬復興式拱廊，抬頭看中央大鐘和彩繪玻璃，超好拍 📸"},
+    {p:"westfield", x:"市中心最大型購物中心，國際與澳洲品牌都有 🛍️"},
+    {p:"coles", x:"買水、優格、零食，順便看看伴手禮"},
+    {p:"charles", x:"晚餐：歐式經典餐廳（★建議先訂位）"},
+    {p:"darling", x:"週六晚上的煙火秀（時間出發前再確認）✨"}
+  ]},
+  {d:"2026-11-08", label:"11/8（日）", title:"東岸海景與週日市集", color:"#ffb38a", items:[
+    {p:"bondimkt", x:"週日限定！手作飾品、古著、原創設計，超好逛 💕"},
+    {p:"harrys", x:"早午餐：Ricotta 鬆餅人氣款。備選：Blackwood Bondi"},
+    {p:"b2c", x:"崖邊海岸步道，美到會驚呼！走一段再折返也可以 🌊"},
+    {p:"dudley", x:"高地公園看夕陽，天際線和海港大橋一次收進相機 🌅"},
+    {p:"ragazzi", x:"晚餐：巷弄裡的手工義大利麵配葡萄酒（★建議先訂位）"}
+  ]},
+  {d:"2026-11-09", label:"11/9（一）", title:"雪梨地標與歷史老街", color:"#ffd166", items:[
+    {p:"paramount", x:"早午餐，咖啡與現代早餐都不錯 ☕"},
+    {p:"opera", x:"世界文化遺產，帆船造型超夢幻。館內導覽需事先預約 🎭"},
+    {p:"rocks", x:"19 世紀石屋與石板路，漫步拍照超有氛圍 🏘️"},
+    {p:"botanic", x:"城市裡的綠洲，慢慢散步就好 🌿"},
+    {p:"mrsm", x:"植物園裡的絕美取景點，歌劇院和大橋一起入鏡 📷"},
+    {p:"stmary", x:"砂岩哥德式大教堂，彩色玻璃超震撼 ⛪"},
+    {p:"bartotti", x:"晚餐：現烤柴燒麵包配生火腿（★建議先訂位）"}
+  ]},
+  {d:"2026-11-10", label:"11/10（二）", title:"南岸小鎮一日遊", color:"#8ee3c7", items:[
+    {step:"從 Central 車站搭南行火車，經傑林貢到奇亞馬（單程約 1.5–2 小時）"},
+    {p:"gerringong", x:"海邊農莊小鎮，慢慢散步 🐄"},
+    {p:"kiama", x:"天然海水噴泉 Blowhole，浪大時最壯觀 💦"},
+    {step:"搭車回 Central 車站"},
+    {p:"messina", x:"雪梨超人氣義式冰淇淋（Martin Place）🍦"},
+    {p:"khao", x:"晚餐【候選A】：泰北清邁咖哩麵，湯頭香濃微辣 🍜"},
+    {p:"toki", x:"晚餐【候選B】：手工精緻義大利麵（Woolloomooloo）"},
+    {p:"midden", x:"晚餐【候選C】：歌劇院內，使用原住民食材的現代澳洲料理（★建議先訂位）"}
+  ]},
+  {d:"2026-11-11", label:"11/11（三）", title:"渡輪與曼利海灘", color:"#8ecae6", items:[
+    {p:"manlyferry", x:"從環形碼頭 2 號碼頭出發，約 30 分鐘，海上風景超享受 ⛴️"},
+    {p:"shelly", x:"水質清澈的海灣，散步或戲水都很適合 🐚"},
+    {p:"rollers", x:"造型與口味都很有創意的酥脆可頌 🥐"},
+    {p:"butterboy", x:"美式手作軟餅乾，口感厚實 🍪"},
+    {p:"salumerie", x:"午餐：義式外帶三明治，料超實在 🥪"},
+    {p:"gap", x:"斷崖與太平洋的絕景，沿著木棧道散步 🌊"},
+    {p:"primi", x:"晚餐：熱鬧的義大利餐廳，手工麵與披薩（★建議先訂位）"}
+  ]},
+  {d:"2026-11-12", label:"11/12（四）", title:"精品咖啡與對岸拍照", color:"#c3aaf0", items:[
+    {p:"singleo", x:"澳洲精品咖啡名店 ☕"},
+    {p:"ap", x:"頂樓露台的人氣麵包店，酸種麵包超好吃 🍞"},
+    {p:"meatwine", x:"午餐：熟成牛排配招牌醬汁（★建議先訂位）🥩"},
+    {p:"milsons", x:"從對岸拍歌劇院與大橋的經典角度 📸"},
+    {p:"blues", x:"大橋旁的公園，換個角度拍照 🌉"},
+    {p:"doodee", x:"晚餐【候選A】：酸辣鮮美的冬蔭功湯麵 🍲"},
+    {p:"bonditratt", x:"晚餐【候選B】：海景義大利餐廳，海鮮麵與披薩"},
+    {p:"monde", x:"晚餐【候選C】：市區輕鬆吃就好"}
+  ]},
+  {d:"2026-11-13", label:"11/13（五）", title:"文青午午餐與巷弄美食", color:"#f7a1c4", items:[
+    {p:"pina", x:"超人氣排隊早午餐，蛋沙拉三明治必點（建議早點去）🥪"},
+    {p:"truffles", x:"藏在小巷裡的時髦小酒館 🍷"},
+    {p:"bourke", x:"老字號烘焙坊，豬肉茴香香腸捲必吃 🌭"},
+    {p:"lode", x:"網美級手工千層可頌與肉派 🥧"},
+    {p:"malay", x:"午餐：香濃微辣的叻沙（Laksa）🍜"},
+    {p:"arthur", x:"晚餐【候選A】：創意主廚套餐（★建議先訂位）"},
+    {p:"palazzo", x:"晚餐【候選B】：手工義大利麵與豐富酒單"},
+    {p:"sundays", x:"晚餐【候選C】：邦迪區的輕食小酒館"}
+  ]},
+  {d:"2026-11-14", label:"11/14（六）", title:"伴手禮與返程", color:"#ff8fb1", items:[
+    {p:"harris", x:"買起司、蜂蜜、乾果、在地優格 🧀"},
+    {p:"coles", x:"伴手禮：袋鼠餅乾、Tim Tam 巧克力 🎁"},
+    {p:"palazzo", x:"午餐：義式料理，悠閒吃一頓"},
+    {p:"hotel", x:"飯店休息、整理行李 🧳"},
+    {step:"晚餐：Chinatown 或 World Square 周邊"},
+    {step:"搭 Airport Link 直達機場國際航廈 ✈️"}
+  ]}
+];
+
+/* ========== 交通 ========== */
+const TRANSPORT = [
+  {t:"🛬 機場 ⇄ 市區（Airport Link）", price:"約 AUD 20 上下", d:"機場到 Central 車站約 10–15 分鐘，可用 Opal 或感應信用卡搭乘。"},
+  {t:"💳 Opal 交通卡", price:"單程 約 AUD 3–5｜每日上限約 AUD 18｜每週上限約 AUD 60", d:"電車、巴士、渡輪都能用，機場車站或便利商店可購買。達到上限後當日搭乘免費。"},
+  {t:"⛴️ 曼利快速渡輪", price:"約 AUD 10 上下（Opal）", d:"從環形碼頭出發約 30 分鐘。海上風景很美，是拍照的好機會。"},
+  {t:"🚌 前往邦迪海灘", price:"Opal 車資約 AUD 3–5", d:"先搭火車到 Bondi Junction，再轉巴士前往海灘。路線可用交通 App 查詢。"},
+  {t:"🚆 Central ⇄ 傑林貢／奇亞馬（南岸火車）", price:"單程 約 AUD 15–25（請再確認）", d:"車程約 1.5–2 小時。請確認 Opal 是否適用，或在車站窗口、官方 App 購票。"},
+  {t:"🚕 計程車／Uber", price:"市區 AUD 10–20｜機場到市區 AUD 40–60", d:"行李多、晚上移動或來回機場時很方便。"},
+  {t:"🚶‍♀️ 步行", price:"免費", d:"市中心多數景點都能走路到，像環形碼頭、歌劇院、岩石區一帶都很近，最適合慢慢逛。"}
+];
+
+/* ========== 狀態 ========== */
+const state = {day:0, visited:{}, booked:{}, mapDay:0};
+const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const mapsUrl = id => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(PLACES[id].n+" Sydney")}`;
+const bookUrl = id => `https://www.google.com/search?q=${encodeURIComponent(PLACES[id].n+" Sydney 訂位")}`;
+const todayStr = () => { const t=new Date(); return `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,"0")}-${String(t.getDate()).padStart(2,"0")}`; };
+
+/* ========== 行程 ========== */
+function renderPills(){
+  const ts = todayStr();
+  document.getElementById("dayPills").innerHTML = DAYS.map((d,i)=>
+    `<button class="pill ${i===state.day?'on':''}" data-day="${i}" style="${i===state.day?'':''}">${d.label}${d.d===ts?' ⭐':''}</button>`).join("");
+}
+function renderDay(){
+  const d = DAYS[state.day];
+  const ts = todayStr();
+  let n = 0;
+  let html = `<div class="card" style="--day:${d.color}">
+    <div class="day-title"><div class="no">Day ${state.day+1}</div>
+    <h2>${d.label}　${esc(d.title)}</h2>${d.d===ts?'<span class="today">今天！</span>':''}</div></div>`;
+  html += `<div class="card" style="--day:${d.color}">`;
+  d.items.forEach((it,ii)=>{
+    if(it.step){ html += `<div class="step">🚆 ${esc(it.step)}</div>`; return; }
+    n++;
+    const k = `${state.day}-${ii}`;
+    const p = PLACES[it.p];
+    const done = state.visited[k];
+    html += `<div class="stop ${done?'done':''}" id="s-${state.day}-${ii}">
+      <input type="checkbox" data-k="${k}" ${done?'checked':''} aria-label="已去過">
+      <div class="num">${n}</div>
+      <div class="body">
+        <div class="name">${esc(p.n)}${p.r?'<span class="res-tag">需訂位</span>':''}</div>
+        <div class="desc">${esc(it.x)}</div>
+        <div class="btns">
+          <a href="${mapsUrl(it.p)}" target="_blank" rel="noopener">📍 Google 地圖</a>
+          ${p.r?`<a class="book" href="${mapsUrl(it.p)}" target="_blank" rel="noopener">🍽️ 去訂位</a>`:""}
+        </div>
+      </div></div>`;
+  });
+  html += `</div>`;
+  document.getElementById("dayContent").innerHTML = html;
+}
+function updateProgress(){
+  let total=0, done=0;
+  DAYS.forEach((d,di)=>d.items.forEach((it,ii)=>{ if(!it.step){ total++; if(state.visited[`${di}-${ii}`]) done++; } }));
+  const pct = total? Math.round(done/total*100):0;
+  document.getElementById("bar").style.width = pct+"%";
+  document.getElementById("prog").textContent = `已完成 ${done} / ${total} 站（${pct}%）`;
+}
+function updateCountdown(){
+  const diff = Math.ceil((new Date("2026-11-07T00:00:00+11:00") - new Date())/86400000);
+  document.getElementById("cd").textContent = diff>0 ? `🛫 距離出發還有 ${diff} 天` : diff===0 ? "🛫 今天出發！" : "✨ 旅程進行中或已結束";
+}
+
+/* ========== 地圖（示意圖 SVG） ========== */
+const X = lng => (lng-151.14)/0.16*760;
+const Y = lat => (-33.78-lat)/0.17*520;
+
+function drawMapBase(){
+  return `
+  <rect width="760" height="520" fill="#fff4ec"/>
+  <!-- 太平洋 -->
+  <path d="M735 0 L760 0 L760 520 L612 520 C598 455 628 395 612 330 C596 265 650 205 700 150 C722 110 712 60 735 0Z" fill="#bfe6f5"/>
+  <!-- 雪梨港 -->
+  <path d="M250 62 C300 88 338 132 356 178 C384 220 424 244 446 284 C408 304 344 296 312 256 C282 216 236 164 250 62Z" fill="#bfe6f5"/>
+  <!-- 公園 -->
+  <ellipse cx="395" cy="250" rx="26" ry="14" fill="#c9f2d4" transform="rotate(-20 395 250)"/>
+  <ellipse cx="170" cy="415" rx="36" ry="22" fill="#c9f2d4"/>
+  <text x="300" y="112" font-size="16" fill="#3a8bb3" font-weight="700" transform="rotate(-38 300 112)">雪梨港</text>
+  <text x="652" y="230" font-size="15" fill="#3a8bb3" font-weight="700" transform="rotate(-62 652 230)">太平洋</text>
+  <text x="20" y="500" font-size="12" fill="#b08aa0">示意圖・非等比例</text>
+  `;
+}
+function drawMap(){
+  const di = state.mapDay;
+  const d = DAYS[di];
+  let n=0; const pts=[];
+  let html = drawMapBase();
+  const legend=[];
+  d.items.forEach((it,ii)=>{
+    if(it.step) return;
+    n++;
+    const p = PLACES[it.p];
+    if(p.off) { legend.push({n, ii, it, off:true}); return; }
+    let x=X(p.lng), y=Y(p.lat);
+    // 避免同一座標重疊
+    const dup = pts.filter(q=>Math.abs(q.x-x)<8 && Math.abs(q.y-y)<8).length;
+    x += dup*16; y += dup*12;
+    pts.push({x,y});
+    html += `<g class="pin" data-ii="${ii}" style="cursor:pointer">
+      <circle cx="${x}" cy="${y}" r="15" fill="${d.color}" stroke="#fff" stroke-width="3"/>
+      <text x="${x}" y="${y+5}" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">${n}</text>
+      <text x="${x+18}" y="${y+5}" font-size="12" fill="#4a3b52" stroke="#fff" stroke-width="3" paint-order="stroke" font-weight="700">${esc(p.n.split(/[（(]/)[0].slice(0,12))}</text>
+    </g>`;
+    legend.push({n, ii, it});
+  });
+  document.getElementById("mapSvg").innerHTML = html;
+  document.getElementById("legend").innerHTML = legend.map(l=>{
+    const p=PLACES[l.it.p];
+    return `<div class="row" data-ii="${l.ii}">
+      <div class="num" style="background:${d.color}">${l.n}</div>
+      <div><strong>${esc(p.n)}</strong>${l.off?'<span class="note"> （地圖範圍外）</span>':''}</div>
+      <a href="${mapsUrl(l.it.p)}" target="_blank" rel="noopener">📍 地圖</a>
+    </div>`;
+  }).join("");
+  document.getElementById("info").innerHTML = "";
+  document.getElementById("mapPills").innerHTML = DAYS.map((x,i)=>
+    `<button class="pill ${i===di?'on':''}" data-mday="${i}"><span class="dot" style="background:${x.color}"></span>${x.label}</button>`).join("");
+}
+function showInfo(ii){
+  const it = DAYS[state.mapDay].items[ii];
+  if(!it || !it.p) return;
+  const p = PLACES[it.p];
+  document.getElementById("info").innerHTML = `<div class="info">
+    <strong>${esc(p.n)}</strong><br>${esc(it.x)}<br>
+    <a href="${mapsUrl(it.p)}" target="_blank" rel="noopener">📍 在 Google 地圖打開</a>
+    ${p.r?` ｜ <a href="${mapsUrl(it.p)}" target="_blank" rel="noopener">🍽️ 去訂位</a>`:""}
+  </div>`;
+  document.querySelectorAll("#legend .row").forEach(r=>r.classList.toggle("hi", Number(r.dataset.ii)===ii));
+}
+
+/* ========== 餐廳 ========== */
+function renderFood(){
+  const dayOf = {};
+  DAYS.forEach(d=>d.items.forEach(it=>{ if(it.p) (dayOf[it.p] ||= []).push(d.label); }));
+  const list = Object.keys(PLACES).filter(id=>PLACES[id].r);
+  document.getElementById("foodList").innerHTML = list.map(id=>{
+    const p = PLACES[id];
+    const b = state.booked[id];
+    return `<div class="food ${b?'booked':''}">
+      <input type="checkbox" data-bk="${id}" ${b?'checked':''} aria-label="已訂位">
+      <div class="body">
+        <div class="name">${esc(p.n)} ${b?'<span class="booked-tag">✅ 已訂位</span>':''}</div>
+        <small>${esc((dayOf[id]||[]).join("、"))}</small>
+        <div class="btns">
+          <a class="book" href="${mapsUrl(id)}" target="_blank" rel="noopener">🍽️ 去訂位</a>
+          <a class="book2" href="${bookUrl(id)}" target="_blank" rel="noopener">🔎 搜尋訂位</a>
+          <a href="${mapsUrl(id)}" target="_blank" rel="noopener">📍 地圖</a>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* ========== 交通 ========== */
+function renderTransport(){
+  document.getElementById("transList").innerHTML = TRANSPORT.map(t=>
+    `<div class="card t-card"><h3>${esc(t.t)}</h3><span class="price">${esc(t.price)}</span><p>${esc(t.d)}</p></div>`).join("");
+}
+function convert(){
+  const a = parseFloat(document.getElementById("aud").value)||0;
+  const r = parseFloat(document.getElementById("rate").value)||0;
+  document.getElementById("twd").textContent = "約 " + Math.round(a*r).toLocaleString("zh-Hant") + " 元";
+}
+
+/* ========== 事件 ========== */
+document.querySelector("nav").addEventListener("click",e=>{
+  const b = e.target.closest("[data-tab]"); if(!b) return;
+  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll("section").forEach(s=>s.classList.toggle("on", s.id==="tab-"+b.dataset.tab));
+  if(b.dataset.tab==="map") drawMap();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+document.getElementById("dayPills").addEventListener("click",e=>{
+  const b = e.target.closest("[data-day]"); if(!b) return;
+  state.day = Number(b.dataset.day); renderPills(); renderDay();
+});
+document.getElementById("dayContent").addEventListener("change",e=>{
+  if(e.target.dataset.k){
+    state.visited[e.target.dataset.k] = e.target.checked;
+    e.target.closest(".stop").classList.toggle("done", e.target.checked);
+    updateProgress();
+  }
+});
+document.getElementById("mapPills").addEventListener("click",e=>{
+  const b = e.target.closest("[data-mday]"); if(!b) return;
+  state.mapDay = Number(b.dataset.mday); drawMap();
+});
+document.getElementById("mapSvg").addEventListener("click",e=>{
+  const g = e.target.closest(".pin"); if(g) showInfo(Number(g.dataset.ii));
+});
+document.getElementById("legend").addEventListener("click",e=>{
+  const r = e.target.closest(".row"); if(r && !e.target.closest("a")) showInfo(Number(r.dataset.ii));
+});
+document.getElementById("foodList").addEventListener("change",e=>{
+  if(e.target.dataset.bk){ state.booked[e.target.dataset.bk] = e.target.checked; renderFood(); }
+});
+document.getElementById("aud").addEventListener("input",convert);
+document.getElementById("rate").addEventListener("input",convert);
+
+/* ========== 初始化 ========== */
+updateCountdown(); renderPills(); renderDay(); updateProgress();
+renderFood(); renderTransport(); convert(); drawMap();
+</script>
+</body>
+</html>
